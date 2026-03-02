@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 import asyncio
 from app.utils.metrics import generate_research_summary
 from datetime import datetime, timezone
@@ -236,13 +237,15 @@ async def get_summary(payload: SummaryRequest):
                 cache_start = time.perf_counter()
 
                 # Execute the Write
-                await redis_client.lpush("cache:history", cache_payload) # type: ignore
+                await redis_client.lpush("cache:history", cache_payload)  # type: ignore
 
                 # 2. Start the sub-stopwatch just for the Trim
                 trim_start = time.perf_counter()
 
                 # Execute the Trim
-                await redis_client.ltrim("cache:history", 0, 99) # pyright: ignore[reportGeneralTypeIssues]
+                await redis_client.ltrim(
+                    "cache:history", 0, 99
+                )  # pyright: ignore[reportGeneralTypeIssues]
 
                 # 3. Stop the clocks
                 total_end = time.perf_counter()
@@ -329,7 +332,9 @@ async def get_research_history():
 
         try:
             # Try the strict async way first
-            await redis_client.lrange("cache:history", 0, 19) # pyright: ignore[reportGeneralTypeIssues]
+            await redis_client.lrange(
+                "cache:history", 0, 19
+            )  # pyright: ignore[reportGeneralTypeIssues]
             cache_read_ms = round((time.perf_counter() - cache_start) * 1000, 3)
 
         except TypeError:
@@ -414,7 +419,7 @@ async def get_research_analytics(limit: int = 50):
                 "average_llm_latency_ms": {},
                 "average_cloud_roundtrip_ms": {},
                 "last_db_read_latency_ms": None,
-                "last_cache_read_latency_ms": None
+                "last_cache_read_latency_ms": None,
             }
 
         llm_latencies = {"gemini": [], "groq": [], "mistral": []}
@@ -448,12 +453,14 @@ async def get_research_analytics(limit: int = 50):
         # 2. Fetch Read Benchmarks (From read_benchmarks)
         # ==========================================
         # Get the single most recent read benchmark
-        read_cursor = db_instance.db.read_benchmarks.find().sort("timestamp", -1).limit(1)
+        read_cursor = (
+            db_instance.db.read_benchmarks.find().sort("timestamp", -1).limit(1)
+        )
         latest_read_logs = await read_cursor.to_list(length=1)
-        
+
         last_db_read = None
         last_cache_read = None
-        
+
         if latest_read_logs:
             last_db_read = latest_read_logs[0].get("db_read_ms")
             last_cache_read = latest_read_logs[0].get("cache_read_ms")
@@ -466,7 +473,7 @@ async def get_research_analytics(limit: int = 50):
             "average_llm_latency_ms": avg_llm_latency,
             "average_cloud_roundtrip_ms": avg_cloud_latency,
             "last_db_read_latency_ms": last_db_read,
-            "last_cache_read_latency_ms": last_cache_read
+            "last_cache_read_latency_ms": last_cache_read,
         }
 
     except Exception as e:
@@ -722,3 +729,6 @@ async def analyze_sentiment(req: AnalyzeRequest):
     print("=" * 50 + "\n")
 
     return final_response
+
+
+handler = Mangum(app)
