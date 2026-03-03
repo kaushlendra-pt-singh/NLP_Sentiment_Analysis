@@ -1,6 +1,9 @@
+#Imp => if ever want to update the AWS lambda the dont forget mangum and add it like below.
+#Imp  if not os.environ.get("VERCEL_Washington_DC"):
+    # from mangum import Mangum
+    # handler = Mangum(app)
 from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum
 import asyncio
 from app.utils.metrics import generate_research_summary
 from datetime import datetime, timezone
@@ -729,6 +732,3 @@ async def analyze_sentiment(req: AnalyzeRequest):
     print("=" * 50 + "\n")
 
     return final_response
-
-
-handler = Mangum(app)
