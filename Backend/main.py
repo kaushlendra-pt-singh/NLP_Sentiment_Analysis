@@ -1,5 +1,5 @@
 #Imp => if ever want to update the AWS lambda the dont forget mangum and add it like below.
-#Imp  if not os.environ.get("VERCEL_Washington_DC"):
+#Imp  if not os.environ.get("Vercel_Washington_DC"):
     # from mangum import Mangum
     # handler = Mangum(app)
 from fastapi import FastAPI, Depends, HTTPException, Request
