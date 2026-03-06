@@ -48,11 +48,11 @@ export const sentimentColor = (sentiment) => {
 export const MODEL_OPTIONS = {
     gemini: [
         { value: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash' },
-        { value: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro' },
+        { value: 'gemini-2.5-flash-lite', label: 'Gemini 2.5 Flash Lite' },
     ],
     groq: [
         { value: 'llama-3.1-8b-instant', label: 'Llama 3.1 8B Instant' },
-        { value: 'llama-3.1-70b-versatile', label: 'Llama 3.1 70B Versatile' },
+        { value: 'llama-3.3-70b-versatile', label: 'Llama 3.3 70B Versatile' },
     ],
     mistral: [
         { value: 'mistral-large-latest', label: 'Mistral Large' },
