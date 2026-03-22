@@ -300,7 +300,6 @@ Copyright © 2024-2025 Kaushlendra Pratap Singh. All rights reserved.
 <a href="https://www.linkedin.com/in/kaushlendra-pratap-singh">
   <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"/>
 </a>
-
 </p>
 
 ---
