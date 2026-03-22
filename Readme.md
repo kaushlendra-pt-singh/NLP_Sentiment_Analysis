@@ -245,7 +245,7 @@ CLOUD_PROVIDER=Localhost  # Options: AWS_Lambda, Azure, Render_Singapore, Vercel
 ENV_TAG=Development       # Options: Production, Research_Phase_1
 
 # Security
-API_KEY_SECRET=nlp_api_key_2580
+API_KEY_SECRET=dev-test-key-2580
 ```
 
 ---
