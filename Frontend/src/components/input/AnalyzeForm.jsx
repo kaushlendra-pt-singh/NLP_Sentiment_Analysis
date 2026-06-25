@@ -10,7 +10,7 @@ const providerMeta = {
 
 export default function AnalyzeForm({ onSubmit, isLoading }) {
     const [text, setText] = useState('');
-    const [cloudKey, setCloudKey] = useState('aws');
+    const [cloudKey, setCloudKey] = useState('vercel');
     const [models, setModels] = useState({
         gemini: MODEL_OPTIONS.gemini[0].value,
         groq: MODEL_OPTIONS.groq[0].value,
