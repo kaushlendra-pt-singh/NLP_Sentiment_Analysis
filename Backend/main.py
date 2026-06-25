@@ -54,9 +54,14 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="NLP Sentiment Research Backend", lifespan=lifespan)
 
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
+allowed_origins = [
+    "https://nlp-sentiment-analysis-tmkx.vercel.app",
+    "http://localhost:5173" # Keep your local workspace lane active for testing!
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins="https://nlp-sentiment-analysis-tmkx.vercel.app/",
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
