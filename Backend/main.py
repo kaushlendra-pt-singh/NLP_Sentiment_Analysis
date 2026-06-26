@@ -56,6 +56,7 @@ app = FastAPI(title="NLP Sentiment Research Backend", lifespan=lifespan)
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 allowed_origins = [
     "https://nlp-sentiment-analysis-tmkx.vercel.app",
+    "https://nlp-sentiment-analysis.netlify.app/",
     "http://localhost:5173" # Keep your local workspace lane active for testing!
 ]
 
